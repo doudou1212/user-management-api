@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  postgres_base:
+    image: postgres:11.5
+    restart: always
+    environment:
+      POSTGRES_USER: usermanagement
+      POSTGRES_PASSWORD: password10
+      POSTGRES_DB: user
+    networks:
+      - app_net
+    volumes:
+      - db-cache:/var/lib/postgresql/data
+    ports:
+      - 5434:5432
+
+networks:
+  app_net:
+
+volumes:
+  db-cache:
