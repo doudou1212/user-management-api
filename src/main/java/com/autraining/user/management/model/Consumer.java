@@ -37,6 +37,6 @@ public class Consumer {
     protected OffsetDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at", updatable = false)
+    @Column(name = "updated_at")
     protected OffsetDateTime updatedAt;
 }
