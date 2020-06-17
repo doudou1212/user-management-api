@@ -5,16 +5,23 @@ import com.autraining.user.management.model.Consumer;
 import com.autraining.user.management.service.ApplicationService;
 import com.autraining.user.management.service.CreateConsumerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/consumer")
+@RequestMapping("/consumers")
 public class ConsumerController {
     @Autowired
     private ApplicationService applicationService;
+
+    @GetMapping
+    public ResponseEntity<Page<Consumer>> getConsumersByName(@RequestParam("name") String name, Pageable pageable) {
+        Page<Consumer> consumers = applicationService.findConsumerByName(name, pageable);
+        return ResponseEntity.ok(consumers);
+    }
 
     @PostMapping
     public ResponseEntity<Integer> createConsumer(@RequestBody CreateConsumerRequest request) {

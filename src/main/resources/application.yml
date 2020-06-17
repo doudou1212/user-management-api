@@ -10,4 +10,12 @@ spring:
           use_jdbc_metadata_defaults: false
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
 
-
+app:
+  env: local
+  search:
+    sort:
+      by: id
+      direction: desc
+    pageSize: 2
+    maxSize: 10
+    page: 0

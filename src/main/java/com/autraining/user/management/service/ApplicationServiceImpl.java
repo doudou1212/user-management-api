@@ -3,6 +3,8 @@ package com.autraining.user.management.service;
 import com.autraining.user.management.model.Consumer;
 import com.autraining.user.management.repository.ConsumerRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.PersistenceException;
@@ -54,6 +56,11 @@ public class ApplicationServiceImpl implements ApplicationService{
         var consumer = consumerRepository.findConsumerById(id);
         consumerRepository.deleteById(id);
         return consumer;
+    }
+
+    @Override
+    public Page<Consumer> findConsumerByName(String name, Pageable pageable) {
+        return consumerRepository.findConsumerByName(name, pageable);
     }
 
 }
