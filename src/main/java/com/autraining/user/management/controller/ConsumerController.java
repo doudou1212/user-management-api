@@ -19,6 +19,9 @@ public class ConsumerController {
 
     @GetMapping
     public ResponseEntity<Page<Consumer>> getConsumersByName(@RequestParam("name") String name, Pageable pageable) {
+//        Can use this to do customer sort
+//        Pageable sortedByName =
+//                PageRequest.of(0, 2, Sort.by("age").ascending());
         Page<Consumer> consumers = applicationService.findConsumerByName(name, pageable);
         return ResponseEntity.ok(consumers);
     }
