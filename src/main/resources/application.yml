@@ -19,3 +19,21 @@ app:
     pageSize: 2
     maxSize: 10
     page: 0
+
+info:
+  app:
+    version: 1.0.0
+    test: test
+    name: user-management-api-actuator
+
+management:
+  security:
+    enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+      base-path: /monitor
+  server:
+    servlet:
+      context-path: /monitor
