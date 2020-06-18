@@ -2,16 +2,16 @@ package com.autraining.user.management.service;
 
 import com.autraining.user.management.model.Consumer;
 import com.autraining.user.management.repository.ConsumerRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import javax.persistence.PersistenceException;
 
-@Component
-@AllArgsConstructor
+@Service
 public class ApplicationServiceImpl implements ApplicationService{
+    @Resource
     private ConsumerRepository consumerRepository;
 
     @Override
@@ -28,11 +28,11 @@ public class ApplicationServiceImpl implements ApplicationService{
                 .build();
 
         try {
-            consumerRepository.save(consumer);
+            Consumer createdConsumer = consumerRepository.save(consumer);
+            return createdConsumer.getId();
         } catch (PersistenceException e) {
             throw new RuntimeException("failed to create consumer" + e.getMessage());
         }
-        return consumer.getId();
     }
 
     @Override
