@@ -19,3 +19,15 @@ export DB_PASSWORD=password10
 
 ./gradlew bootRun
 ```
+
+The server is in `localhost:8080`
+
+### with docker
+
+start server:
+
+```bash
+docker-compose up dev
+```
+
+The server is in `localhost:80802`
