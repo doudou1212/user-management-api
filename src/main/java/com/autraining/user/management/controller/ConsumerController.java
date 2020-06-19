@@ -2,6 +2,7 @@ package com.autraining.user.management.controller;
 
 
 import com.autraining.user.management.model.Consumer;
+import com.autraining.user.management.model.Email;
 import com.autraining.user.management.service.ApplicationService;
 import com.autraining.user.management.service.CreateConsumerRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/consumers")
 public class ConsumerController {
     @Autowired
     private ApplicationService applicationService;
+
+    @Autowired
+    RestTemplate restTemplate;
+
 
     @GetMapping
     public ResponseEntity<Page<Consumer>> getConsumersByName(@RequestParam("name") String name, Pageable pageable) {
@@ -43,7 +49,14 @@ public class ConsumerController {
     @PutMapping("/{id}")
     public ResponseEntity<Consumer> updateConsumer(@PathVariable("id") Integer id, @RequestBody CreateConsumerRequest request) {
         System.out.println("update consumer!");
-        Consumer consumer = applicationService.updateConsumerById(request, id);
+        Email email = restTemplate.getForObject("http://service-email-management/emails/"+id, Email.class);
+        System.out.println(email);
+        CreateConsumerRequest updatedRequest = CreateConsumerRequest.builder()
+                .name(request.getName())
+                .age(request.getAge())
+                .email(email.getAddress())
+                .build();
+        Consumer consumer = applicationService.updateConsumerById(updatedRequest, id);
         return ResponseEntity.
                 status(HttpStatus.CREATED)
                 .body(consumer);
