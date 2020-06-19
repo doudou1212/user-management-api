@@ -5,13 +5,13 @@ import com.autraining.user.management.model.Consumer;
 import com.autraining.user.management.model.Email;
 import com.autraining.user.management.service.ApplicationService;
 import com.autraining.user.management.service.CreateConsumerRequest;
+import com.autraining.user.management.service.EmailManagementClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/consumers")
@@ -20,7 +20,7 @@ public class ConsumerController {
     private ApplicationService applicationService;
 
     @Autowired
-    RestTemplate restTemplate;
+   private EmailManagementClientService emailManagementClientService;
 
 
     @GetMapping
@@ -49,7 +49,7 @@ public class ConsumerController {
     @PutMapping("/{id}")
     public ResponseEntity<Consumer> updateConsumer(@PathVariable("id") Integer id, @RequestBody CreateConsumerRequest request) {
         System.out.println("update consumer!");
-        Email email = restTemplate.getForObject("http://service-email-management/emails/"+id, Email.class);
+        Email email = emailManagementClientService.getEmail(id);
         System.out.println(email);
         CreateConsumerRequest updatedRequest = CreateConsumerRequest.builder()
                 .name(request.getName())
