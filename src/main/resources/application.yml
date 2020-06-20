@@ -43,9 +43,9 @@ management:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:9000/eureka/
+      defaultZone: http://${EUREKA_SERVER_HOST}:${EUREKA_SERVER_PORT}/eureka/
 server:
-  port: 9001
+  port: ${PORT}
 
 feign:
   hystrix:

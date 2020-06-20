@@ -16,11 +16,13 @@ export DB_PORT=5434
 export DB_NAME=user
 export DB_USER=usermanagement
 export DB_PASSWORD=password10
-
+export EUREKA_SERVER_HOST=localhost
+export EUREKA_SERVER_PORT=9000
+export PORT=9001
 ./gradlew bootRun
 ```
 
-The server is in `localhost:8080`
+The server is in `localhost:9001`
 
 ### with docker
 
@@ -30,4 +32,4 @@ start server:
 docker-compose up dev
 ```
 
-The server is in `localhost:80802`
+The server is in `localhost:9001`
